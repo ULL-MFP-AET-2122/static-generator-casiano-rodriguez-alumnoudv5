@@ -1,5 +1,5 @@
 task :serve do
-  sh "bundle exec jekyll serve"
+  sh "bundle exec jekyll serve --port 5678"
 end 
 
 task :build do
