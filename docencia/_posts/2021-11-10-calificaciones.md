@@ -1,5 +1,5 @@
 ---
-title: Table test
+title: Calificaciones
 category: pages
 ---
 
