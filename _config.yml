@@ -288,4 +288,4 @@ defaults:
       comments: # true
       share: true
       related: true
-      permalink: :title
+      #permalink: :categories/:year/:month/:date/
