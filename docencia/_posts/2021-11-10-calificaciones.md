@@ -1,14 +1,29 @@
 ---
-title: Calificaciones
+title: Calificaciones de AET
 category: pages
 ---
+
+## Inspeccionando variables
+
+{% raw %}
+```liquid
+{% assign row = site.data.calificaciones[0] %}
+{% for pair in row %}
+  {{ pair | inspect }}
+{% endfor %}
+```
+{% endraw %}
 
 {% assign row = site.data.calificaciones[0] %}
 {% for pair in row %}
   {{ pair | inspect }}
 {% endfor %}
 
+## Tabla
 
+
+{% raw %}
+```
 <table>
   {% for row in site.data.calificaciones %}
     {% if forloop.first %}
@@ -21,6 +36,25 @@ category: pages
 
     {% tablerow pair in row %}
       {{ pair[1] }}
+    {% endtablerow %}
+    
+  {% endfor %}
+</table>
+```
+{% endraw %}
+
+<table>
+  {% for row in site.data.calificaciones %}
+    {% if forloop.first %}
+    <tr>
+      {% for p in row %}
+        <th>{{ p[0] }}</th>
+      {% endfor %}
+    </tr>
+    {% endif %}
+
+    {% tablerow p in row %}
+      {{ p[1] }}
     {% endtablerow %}
     
   {% endfor %}
