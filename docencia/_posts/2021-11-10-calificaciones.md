@@ -14,9 +14,12 @@ category: pages
 ```
 {% endraw %}
 
-{% assign row = site.data.calificaciones[0] %}
-{% for pair in row %}
-  {{ pair | inspect }}
+{% assign row = site.data.calificaciones %}
+  {{ row | inspect }}
+{% for row in site.data.calificaciones %}
+    {% for pair in row %}
+      {{ pair[0] }}: {{ pair[1]}}
+    {% endfor %}
 {% endfor %}
 
 ## Tabla
