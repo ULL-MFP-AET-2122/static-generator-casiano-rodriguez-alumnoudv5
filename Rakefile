@@ -1,3 +1,8 @@
+desc "Remember to set my login in guthub"
+task :remember do
+  puts "Remember to set the environment variable 'login' in your shell before start!\nWrite this command:\n\teval $(gp env -e login=<your login at github>)"
+end
+
 desc "Build and serve your website in folder _site. Use: rake server[<portnumber>] otherwise a random port will be chosen"
 task :serve, [:port] do |t, args|
   sh "bundle exec jekyll serve --port #{ args[:port] or Integer(1000+9000*rand())}"
@@ -14,8 +19,8 @@ task :bw do
 end 
 
 desc "Makes the folder '_site' a repo. Use: rake setup[aluXXXX]"
-task :setup, [:url_remoto] => [:clean_site, :build] do |t, args|
-  sh "cd _site && git init . && git config --global init.defaultBranch master && git add -f . && git remote add origin https://#{args[:url_remoto]}.github.io"
+task :setup => [:clean_site, :build] do |t, args|
+  sh "cd _site && git init . && git config --global init.defaultBranch master && git add -f . && git remote add origin https://github.com/#{ENV["login"]}/#{ENV["login"]}.github.io"
 end
 
 desc "Removes everything inside the folder _site"
