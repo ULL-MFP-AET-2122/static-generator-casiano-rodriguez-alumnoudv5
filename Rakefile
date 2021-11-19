@@ -8,14 +8,14 @@ task :build do
   sh "bundle exec jekyll build"
 end
 
-desc "build and watch"
+desc "Watch changes and rebuild web site each time some change occurs"
 task :bw do
   sh "bundle exec jekyll build --watch"
 end 
 
-desc "Makes the folder '_site0' a repo. Use: rake setup[aluXXXX.github.io]"
-task :setup, [:url_remoto] => build do |t, args|
-  sh "cd _site && git init . && git add -f . && git remote add origin #{args[:url_remoto]}"
+desc "Makes the folder '_site' a repo. Use: rake setup[aluXXXX]"
+task :setup, [:url_remoto] => [:clean_site, :build] do |t, args|
+  sh "cd _site && git init . && git config --global init.defaultBranch master && git add -f . && git remote add origin https://#{args[:url_remoto]}.github.io"
 end
 
 desc "Removes everything inside the folder _site"
@@ -23,8 +23,10 @@ task :clean_site do
   sh "rm -fR _site"
 end
 
+task :clean => [:clean_site]
+
 desc "Deploy all the files inside _site to GitHub. Assumes _site is already a repo"
-task :deploy => do 
+task :deploy => [:setup] do 
   sh "cd _site && git add -f . && git commit -am new-deploy && git push -fu origin master"
 end
  
